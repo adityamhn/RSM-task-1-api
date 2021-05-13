@@ -1,0 +1,27 @@
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+
+// contains email , token created , userId
+var ResetPasswordTokenSchema = new Schema({
+    userId:{
+        type:String,
+        default:null
+    } ,
+    email: {
+        type:String,
+        default:null
+    },
+    token:{
+        type: String,
+        default:null
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+        expires:600
+      },
+
+})
+
+module.exports = mongoose.model('ResetPasswordToken', ResetPasswordTokenSchema)
