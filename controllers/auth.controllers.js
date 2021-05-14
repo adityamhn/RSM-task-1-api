@@ -20,6 +20,10 @@ const transporter = nodemailer.createTransport({
     user: nodeMailerUser,
     pass: nodeMailerPass,
   },
+  authMethod: 'PLAIN',
+  tls: {
+    rejectUnauthorized: false
+  }
 });
 
 
