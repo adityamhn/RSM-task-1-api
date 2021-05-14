@@ -13,6 +13,7 @@ const nodeMailerUser = process.env.EMAIL;
 const nodeMailerPass = process.env.PASS;
 
 const transporter = nodemailer.createTransport({
+  pool: true,
   host: 'smtp.gmail.com',
   port: 465,
   secure:true,
@@ -20,6 +21,10 @@ const transporter = nodemailer.createTransport({
     user: nodeMailerUser,
     pass: nodeMailerPass,
   },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false
+  }
 });
 
 
