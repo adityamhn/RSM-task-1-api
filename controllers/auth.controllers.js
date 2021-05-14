@@ -67,16 +67,18 @@ exports.signup = async (req, res) => {
         return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
       }
 
+      await user.save((err, user) => {
+        if (err) {
+          res.status(500).send({ message: err })
+          return
+        }
+  
+        res.send({ message: 'Please verify your email.' })
+      })
+
     })
 
-    await user.save((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err })
-        return
-      }
 
-      res.send({ message: 'Please verify your email.' })
-    })
 
 
   }
