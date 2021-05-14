@@ -13,8 +13,7 @@ const nodeMailerUser = process.env.EMAIL;
 const nodeMailerPass = process.env.PASS;
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    RequireAuthentication: 'Yes',
+    service: 'Gmail',
     auth: {
       user: nodeMailerUser,
       pass: nodeMailerPass,
@@ -64,14 +63,16 @@ const transporter = nodemailer.createTransport({
           console.log(err)
           return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
         }
-        await user.save((err, user) => {
-          if (err) {
-            res.status(500).send({ message: err })
-            return
-          }
-    
-          res.send({ message: 'Please verify your email.' }) 
-        })
+  
+      })
+
+      await user.save((err, user) => {
+        if (err) {
+          res.status(500).send({ message: err })
+          return
+        }
+  
+        res.send({ message: 'Please verify your email.' }) 
       })
   
 
