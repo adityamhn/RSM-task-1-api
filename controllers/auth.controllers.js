@@ -14,6 +14,7 @@ const nodeMailerPass = process.env.PASS;
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    secureConnection:false,
     auth: {
       user: nodeMailerUser,
       pass: nodeMailerPass,
