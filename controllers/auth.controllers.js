@@ -43,14 +43,9 @@ const transporter = nodemailer.createTransport({
         password: bcrypt.hashSync(req.body.password, 8),
       })
   
-      console.log(user)
       // handle errors
-      console.log("verify user's email.")
-      let token = crypto.randomBytes(20).toString("hex"); // creates a hash token 
+      let token = crypto.randomBytes(20).toString("hex");
       let userId = user._id;
-      console.log(token);
-      // console.log("change")
-      // console.log(hashToken);
       await new VerifyEmailToken({
         userId: userId,
         token: token,
@@ -62,13 +57,12 @@ const transporter = nodemailer.createTransport({
         from: nodeMailerUser,
         to: data,
         subject: "Verify your email for your account",
-        html: `Please click the given link to verify your email: <a href=${url}>${url}</a>`
+        html: `<h1>Please click the given link to verify your email: </h1><a href=${url}>${url}</a>`
       };
       transporter.sendMail(mainOptions, (err, info) => {
         if (err) {
           return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
         }
-        console.log(info)
       })
   
       await user.save((err, user) => {
@@ -77,7 +71,7 @@ const transporter = nodemailer.createTransport({
           return
         }
   
-        res.send({ message: 'Please verify your email.' }) // check 
+        res.send({ message: 'Please verify your email.' }) 
       })
     }
     catch (error) {
@@ -129,7 +123,6 @@ const transporter = nodemailer.createTransport({
     try {
       const { userId, token } = req.params
       const dataToken = await VerifyEmailToken.findOne({ userId: userId, token: token });
-      console.log(dataToken)
       if (!dataToken) return res.status(500).send({ message: "ERROR_NOT_FOUND" })
       await User.updateOne(
         { _id: req.params.userId },
@@ -179,14 +172,13 @@ const transporter = nodemailer.createTransport({
       var mainOptions = {
         from: nodeMailerUser,
         to: data,
-        subject: "Reset password link for your bugbase account",
-        html: `Please click the given link to reset password: <a href=${url}>${url}</a>`
+        subject: "Reset password link for your account",
+        html: `<h1>Please click the given link to reset password: </h1><a href=${url}>${url}</a>`
       };
       await transporter.sendMail(mainOptions, (err, info) => {
         if (err) {
           return res.status(500).send({ message: err })
         }
-        console.log(info)
       })
       return res.status(200).send({ message: "Reset link has been mailed to you." })
     }

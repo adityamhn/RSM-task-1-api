@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 
 
   app.get('/', (req, res) => {
-    res.json({ message: 'BugBase API' })
+    res.json({ message: 'Welcome to my API' })
   })
 
   app.use('/api/auth', require('./routes/routes'))
