@@ -59,20 +59,21 @@ const transporter = nodemailer.createTransport({
         subject: "Verify your email for your account",
         html: `<h1>Please click the given link to verify your email: </h1><a href=${url}>${url}</a>`
       };
-      transporter.sendMail(mainOptions, (err, info) => {
+      transporter.sendMail(mainOptions, async(err, info) => {
         if (err) {
           return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
         }
+        await user.save((err, user) => {
+          if (err) {
+            res.status(500).send({ message: err })
+            return
+          }
+    
+          res.send({ message: 'Please verify your email.' }) 
+        })
       })
   
-      await user.save((err, user) => {
-        if (err) {
-          res.status(500).send({ message: err })
-          return
-        }
-  
-        res.send({ message: 'Please verify your email.' }) 
-      })
+
     }
     catch (error) {
       return res.status(500).send({ message: error })
