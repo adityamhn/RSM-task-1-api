@@ -13,7 +13,7 @@ const nodeMailerUser = process.env.EMAIL;
 const nodeMailerPass = process.env.PASS;
 
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'gmail',
     auth: {
       user: nodeMailerUser,
       pass: nodeMailerPass,
