@@ -53,7 +53,7 @@ exports.signup = async (req, res) => {
       token: token,
       email: req.body.email
     }).save();
-    let url = `https://aditya-rsmtask.netlify.app/api/auth/verifyEmail/${token}/${userId}`
+    let url = `https://intense-peak-83897.herokuapp.com/api/auth/verifyEmail/${token}/${userId}`
     let data = [req.body.email]
     var mainOptions = {
       from: nodeMailerUser,
