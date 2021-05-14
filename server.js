@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-var whitelist = ['http://localhost:3000']
+var whitelist = ['http://localhost:3000','https://aditya-rsmtask.netlify.app']
 
 var corsOptions = {
   origin: function (origin, callback) {
