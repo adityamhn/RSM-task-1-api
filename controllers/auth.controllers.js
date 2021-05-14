@@ -8,6 +8,7 @@ const ResetPasswordToken = require('../models/resetPasswordToken')
 const crypto = require("crypto");
 
 const nodemailer = require('nodemailer')
+const { getMaxListeners } = require('../models/user')
 
 const nodeMailerUser = process.env.EMAIL;
 const nodeMailerPass = process.env.PASS;
@@ -17,13 +18,10 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure:true,
   auth: {
-    user: nodeMailerUser,
-    pass: nodeMailerPass,
+    user: 'peela.aditya123@gmail.com',
+    pass: 'abcd7095lolo',
   },
-  authMethod: 'PLAIN',
-  tls: {
-    rejectUnauthorized: false
-  }
+
 });
 
 
