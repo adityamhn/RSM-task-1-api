@@ -61,6 +61,7 @@ const transporter = nodemailer.createTransport({
       };
       transporter.sendMail(mainOptions, async(err, info) => {
         if (err) {
+          console.log(err)
           return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
         }
         await user.save((err, user) => {
