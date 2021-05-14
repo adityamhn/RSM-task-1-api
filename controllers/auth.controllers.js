@@ -53,7 +53,7 @@ exports.signup = async (req, res) => {
       token: token,
       email: req.body.email
     }).save();
-    let url = `http://localhost:8000/api/auth/verifyEmail/${token}/${userId}`
+    let url = `https://aditya-rsmtask.netlify.app/api/auth/verifyEmail/${token}/${userId}`
     let data = [req.body.email]
     var mainOptions = {
       from: nodeMailerUser,
@@ -143,7 +143,7 @@ exports.verifyEmail = async (req, res) => {
       });
 
     await dataToken.deleteOne()
-    return res.redirect('http://localhost:3000/login?verified=true')
+    return res.redirect('https://aditya-rsmtask.netlify.app/login?verified=true')
   }
   catch (err) {
     return res.status(500).send({ message: err })
@@ -172,7 +172,7 @@ exports.forgetPassword = async (req, res) => {
       token: resetToken
     }).save();
 
-    const url = `http://localhost:3000/resetPassword/${resetToken}/${user._id}`
+    const url = `https://aditya-rsmtask.netlify.app/resetPassword/${resetToken}/${user._id}`
 
     let data = email
     var mainOptions = {
