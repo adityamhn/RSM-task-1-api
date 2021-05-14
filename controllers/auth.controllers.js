@@ -8,7 +8,6 @@ const ResetPasswordToken = require('../models/resetPasswordToken')
 const crypto = require("crypto");
 
 const nodemailer = require('nodemailer')
-const { getMaxListeners } = require('../models/user')
 
 const nodeMailerUser = process.env.EMAIL;
 const nodeMailerPass = process.env.PASS;
@@ -18,10 +17,9 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure:true,
   auth: {
-    user: 'peela.aditya123@gmail.com',
-    pass: 'abcd7095lolo',
+    user: nodeMailerUser,
+    pass: nodeMailerPass,
   },
-
 });
 
 
@@ -69,18 +67,16 @@ exports.signup = async (req, res) => {
         return res.status(500).send({ message: "ERROR_SENDING_EMAIL" })
       }
 
-      await user.save((err, user) => {
-        if (err) {
-          res.status(500).send({ message: err })
-          return
-        }
-  
-        res.send({ message: 'Please verify your email.' })
-      })
-
     })
 
+    await user.save((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err })
+        return
+      }
 
+      res.send({ message: 'Please verify your email.' })
+    })
 
 
   }
